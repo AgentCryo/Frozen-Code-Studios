@@ -165,6 +165,15 @@ p {
     font-size: 14px;
 }
 
+txt {
+    color: white;
+    text-align: left;
+    padding: 20px;
+    font-family: 'Protest Strike', sans-serif;
+    margin: 0;
+    font-size: 14px;
+}
+
 footer {
     position: fixed;
     bottom: 0;
