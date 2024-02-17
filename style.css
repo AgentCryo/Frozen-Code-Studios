@@ -71,14 +71,6 @@ body {
   visibility: visible;
 }
 
-h1 {
-  color: white;
-  text-align: center;
-  padding: 20px;
-  font-family: 'Protest Strike', sans-serif;
-  margin: 0;
-}
-
 .main-content {
   background-color: #111;
   color: white;
@@ -96,16 +88,6 @@ h1 {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-footer {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  background-color: black;
-  color: white;
-  text-align: center;
-  padding: 10px;
 }
 
 html {
@@ -146,4 +128,22 @@ html {
   color: #fff;
   text-decoration: none;
   cursor: pointer;
+}
+
+h1 {
+    color: white;
+    text-align: center;
+    padding: 20px;
+    font-family: 'Protest Strike', sans-serif;
+    margin: 0;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 10px;
 }
