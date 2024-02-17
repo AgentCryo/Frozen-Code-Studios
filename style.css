@@ -184,7 +184,7 @@ footer {
     padding: 10px;
 }
 
-.content-box {
+body .main-content .content-box {
     width: 80%;
     height: auto;
     margin: 0 auto;
