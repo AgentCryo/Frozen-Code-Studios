@@ -51,9 +51,7 @@
             </div>
 
             <!-- Add Sign In button on the right -->
-            <div class="sign-in-button" onclick="signInWithGoogle()">
-                Sign In with Google
-            </div>
+            <div class="sign-in-button" onclick="signInWithGoogle()">Sign In </div>
         </div>
     </div>
 
@@ -72,14 +70,10 @@
         &copy; 2024 Frozen Code Studios. All rights reserved.
     </footer>
 
-    <script src="https://www.gstatic.com/firebasejs/9.1.2/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.1.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.3.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.3.0/firebase-auth.js"></script>
 
-    <script type="module">
-        // Your Firebase config object
-        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.1.2/firebase-app.js';
-        import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.1.2/firebase-auth.js';
-
+    <script>
         const firebaseConfig = {
             apiKey: "AIzaSyAvfxL-EiAo6i6iOuGE2qsw7vqLarK1OpU",
             authDomain: "frozen-code-studios-website.firebaseapp.com",
@@ -90,24 +84,9 @@
             measurementId: "G-G4993S3SZ1"
         };
 
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-
-        // Firebase authentication state listener
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                // User is signed in
-                console.log(user);
-            } else {
-                // User is signed out
-            }
-        });
-
-        // Google sign-in function
         function signInWithGoogle() {
-            const provider = new GoogleAuthProvider();
-            signInWithPopup(auth, provider)
+            const provider = new firebase.auth.GoogleAuthProvider();
+            firebase.auth().signInWithPopup(provider)
                 .then((result) => {
                     // This gives you a Google Access Token
                     const credential = result.credential;
@@ -120,6 +99,7 @@
                 });
         }
     </script>
+
 </body>
 
 </html>
