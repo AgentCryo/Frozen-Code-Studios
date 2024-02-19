@@ -70,9 +70,10 @@
     </footer>
 
     <!-- Your Firebase project configuration -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js"></script>
-    <script>
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
+        import { getAuth, onAuthStateChanged, GoogleAuthProvider } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
+
         const firebaseConfig = {
             apiKey: "AIzaSyAvfxL-EiAo6i6iOuGE2qsw7vqLarK1OpU",
             authDomain: "frozen-code-studios-website.firebaseapp.com",
@@ -83,18 +84,18 @@
             measurementId: "G-G4993S3SZ1"
         };
 
-        firebase.initializeApp(firebaseConfig);
-
+        const firebaseApp = initializeApp(firebaseConfig);
+        const auth = getAuth(firebaseApp);
         const signInButton = document.getElementById('signInButton');
 
         // Sign In Button Click Event
         signInButton.addEventListener('click', function () {
-            const provider = new firebase.auth.GoogleAuthProvider();
-            firebase.auth().signInWithRedirect(provider);
+            const provider = new GoogleAuthProvider();
+            auth.signInWithRedirect(provider);
         });
 
         // Check for auth state changes
-        firebase.auth().onAuthStateChanged(function (user) {
+        onAuthStateChanged(auth, function (user) {
             if (user) {
                 // User is signed in
                 console.log('Signed in as: ' + user.displayName);
@@ -106,6 +107,7 @@
             }
         });
     </script>
+
 
 
 </body>
