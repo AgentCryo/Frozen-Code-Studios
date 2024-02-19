@@ -197,3 +197,12 @@ body .main-content .content-box {
     padding: 0 20px;
     border-radius: 10px;
 }
+
+#signInButton {
+    background-color: #4CAF50; /* Green background color */
+    color: white; /* White text color */
+    padding: 10px 20px; /* Padding inside the button */
+    border: none; /* Remove borders */
+    border-radius: 5px; /* Optional: Rounded corners */
+    cursor: pointer; /* Add a pointer cursor on hover */
+}
