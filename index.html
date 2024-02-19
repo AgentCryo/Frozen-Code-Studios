@@ -70,7 +70,10 @@
     </footer>
 
     <!-- Your Firebase project configuration -->
-    <script>
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
+
         const firebaseConfig = {
             apiKey: "AIzaSyAvfxL-EiAo6i6iOuGE2qsw7vqLarK1OpU",
             authDomain: "frozen-code-studios-website.firebaseapp.com",
@@ -81,34 +84,56 @@
             measurementId: "G-G4993S3SZ1"
         };
 
-        firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
+        const firebaseApp = initializeApp(firebaseConfig);
+        const auth = getAuth(firebaseApp);
         const signInButton = document.getElementById('signInButton');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
 
         // Sign In Button Click Event
         signInButton.addEventListener('click', function () {
-            const provider = new firebase.auth.GoogleAuthProvider();
-            auth.signInWithRedirect(provider);
+            const email = emailInput.value;
+            const password = passwordInput.value;
+
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    // Signed in
+                    const user = userCredential.user;
+                    console.log('Signed in as: ' + user.email);
+                })
+                .catch((error) => {
+                    // Handle errors
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    console.error('Sign-in error:', errorCode, errorMessage);
+                });
         });
 
         // Check for auth state changes
-        auth.getRedirectResult().then(function (result) {
-            if (result.user) {
+        onAuthStateChanged(auth, function (user) {
+            if (user) {
                 // User is signed in
-                console.log('Signed in as: ' + result.user.displayName);
-                signInButton.innerText = result.user.displayName; // Update button text with username
+                console.log('Signed in as: ' + user.email);
+                signInButton.innerText = user.email; // Update button text with email
             } else {
                 // User is signed out
                 console.log('User signed out');
                 signInButton.innerText = 'Sign In'; // Reset button text
             }
-        }).catch(function (error) {
-            // Handle errors
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            console.error('Sign-in error:', errorCode, errorMessage);
         });
     </script>
+
+    <!-- Add this form in your HTML body for email/password sign-in -->
+    <form>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+
+        <button type="button" id="signInButton">Sign In</button>
+    </form>
+
 
 
 
