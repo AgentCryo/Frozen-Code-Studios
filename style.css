@@ -199,10 +199,14 @@ body .main-content .content-box {
 }
 
 #signInButton {
-    background-color: #4CAF50; /* Green background color */
-    color: white; /* White text color */
-    padding: 10px 20px; /* Padding inside the button */
-    border: none; /* Remove borders */
-    border-radius: 5px; /* Optional: Rounded corners */
-    cursor: pointer; /* Add a pointer cursor on hover */
+    position: absolute;
+    top: 50%; /* Adjust the top position as needed */
+    right: 20px; /* Adjust the right position as needed */
+    transform: translateY(-50%); /* Center vertically using translateY */
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
