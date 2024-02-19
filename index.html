@@ -87,20 +87,21 @@
         document.getElementById('signInButton').addEventListener('click', function () {
             var provider = new firebase.auth.GoogleAuthProvider();
 
-            firebase.auth().signInWithPopup(provider)
-                .then(function (result) {
-                    var user = result.user;
-                    console.log('Signed in as: ' + user.displayName);
-
-                    // Update button text with user's display name
-                    document.getElementById('signInButton').innerText = user.displayName;
-                })
-                .catch(function (error) {
-                    var errorCode = error.code;
-                    var errorMessage = error.message;
-                    console.error('Sign-in error:', errorCode, errorMessage);
-                });
+            firebase.auth().signInWithRedirect(provider);
         });
+
+        // Handle the redirect in the page load or initialize a listener for auth state changes.
+        firebase.auth().getRedirectResult().then(function (result) {
+            if (result.user) {
+                console.log('Signed in as: ' + result.user.displayName);
+                document.getElementById('signInButton').innerText = result.user.displayName;
+            }
+        }).catch(function (error) {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            console.error('Redirect error:', errorCode, errorMessage);
+        });
+
     </script>
 
 
