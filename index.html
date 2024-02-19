@@ -6,20 +6,6 @@
     <meta name="viewport" content="width=device-width">
     <title>Frozen Code Studios</title>
     <link href="style.css" rel="stylesheet" type="text/css" />
-    <style>
-        /* Your CSS styles here */
-        #signInContent {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-        }
-    </style>
 </head>
 
 <body>
@@ -28,7 +14,42 @@
         <h1 class="protest-strike-regular">Frozen Code Studios</h1>
 
         <div class="nav-links">
-            <!-- ... other navigation links ... -->
+            <span class="nav-link" onclick="window.location.href='index.html'">Home</span>
+
+            <div class="dropdown">
+                <span>Games</span>
+                <div class="dropdown-content">
+                    <a href="Devlogs.html">Devlogs</a>
+                    <a href="indev.html">Indev</a>
+                    <a href="bugrprt.html">Bug Reports</a>
+                    <a href="games.html">All Games by FCS</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <span>Studio Information</span>
+                <div class="dropdown-content">
+                    <a href="mtt.html">Meet the team</a>
+                    <a href="placetaker.html">Place Taker</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <span>Other Information</span>
+                <div class="dropdown-content">
+                    <a href="privacypolicy.html">Privacy Policy</a>
+                    <a href="termsofservice.html">Terms of Service</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <span>Discord</span>
+                <div class="dropdown-content">
+                    <a href="https://discord.gg/cRYVhNkssz" target="_blank">Join Now</a>
+                    <a href="comguid.html">Community Guidelines</a>
+                </div>
+            </div>
+
             <button id="signInButton">Sign In</button>
         </div>
     </div>
@@ -50,7 +71,21 @@
 
     <!-- Your Firebase project configuration -->
     <script type="module">
-        // ... Firebase imports and configuration ...
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
+        import { getAuth, signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAvfxL-EiAo6i6iOuGE2qsw7vqLarK1OpU",
+            authDomain: "frozen-code-studios-website.firebaseapp.com",
+            projectId: "frozen-code-studios-website",
+            storageBucket: "frozen-code-studios-website.appspot.com",
+            messagingSenderId: "940079797917",
+            appId: "1:940079797917:web:54aba40e93d2af4bdde674",
+            measurementId: "G-G4993S3SZ1"
+        };
+
+        const firebaseApp = initializeApp(firebaseConfig);
+        const auth = getAuth(firebaseApp);
 
         const signInButton = document.getElementById('signInButton');
         const signInContent = document.getElementById('signInContent');
@@ -83,8 +118,6 @@
                     console.error('Sign-in error:', errorCode, errorMessage);
                 });
         });
-
-                    // ... other Firebase auth state change and create account functionality ...
     </script>
 
     <!-- Add this form in your HTML body for email/password sign-in -->
