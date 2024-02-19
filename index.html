@@ -50,8 +50,7 @@
                 </div>
             </div>
 
-            <!-- Add Sign In button on the right -->
-            <div class="sign-in-button" onclick="signInWithPopup()">Sign In </div>
+            <button id="signInButton">Sign In</button>
         </div>
     </div>
 
@@ -70,9 +69,8 @@
         &copy; 2024 Frozen Code Studios. All rights reserved.
     </footer>
 
-        
+    <!-- Your Firebase project configuration -->
     <script>
-
         const firebaseConfig = {
             apiKey: "AIzaSyAvfxL-EiAo6i6iOuGE2qsw7vqLarK1OpU",
             authDomain: "frozen-code-studios-website.firebaseapp.com",
@@ -84,8 +82,6 @@
         };
 
         firebase.initializeApp(firebaseConfig);
-
-        import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
         // Sign In Button Click Event
         document.getElementById('signInButton').addEventListener('click', function () {
@@ -99,10 +95,15 @@
                     var user = result.user;
                     console.log('Signed in as: ' + user.displayName);
                 })
-                .catch(function (error)
-
-
+                .catch(function (error) {
+                    // Handle errors
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    console.error('Sign-in error:', errorCode, errorMessage);
+                });
+        });
     </script>
+
 
 </body>
 
