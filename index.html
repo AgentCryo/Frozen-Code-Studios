@@ -70,10 +70,7 @@
     </footer>
 
     <!-- Your Firebase project configuration -->
-    <script type="module">
-        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
-        import { getAuth, onAuthStateChanged, GoogleAuthProvider } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
-
+    <script>
         const firebaseConfig = {
             apiKey: "AIzaSyAvfxL-EiAo6i6iOuGE2qsw7vqLarK1OpU",
             authDomain: "frozen-code-studios-website.firebaseapp.com",
@@ -84,38 +81,32 @@
             measurementId: "G-G4993S3SZ1"
         };
 
-        const firebaseApp = initializeApp(firebaseConfig);
-        const auth = getAuth(firebaseApp);
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
         const signInButton = document.getElementById('signInButton');
 
         // Sign In Button Click Event
         signInButton.addEventListener('click', function () {
-            const provider = new GoogleAuthProvider();
-            auth.signInWithPopup(provider)
-                .then(function (result) {
-                    // Successful sign-in
-                    var user = result.user;
-                    console.log('Signed in as: ' + user.displayName);
-                })
-                .catch(function (error) {
-                    // Handle errors
-                    var errorCode = error.code;
-                    var errorMessage = error.message;
-                    console.error('Sign-in error:', errorCode, errorMessage);
-                });
+            const provider = new firebase.auth.GoogleAuthProvider();
+            auth.signInWithRedirect(provider);
         });
 
         // Check for auth state changes
-        onAuthStateChanged(auth, function (user) {
-            if (user) {
+        auth.getRedirectResult().then(function (result) {
+            if (result.user) {
                 // User is signed in
-                console.log('Signed in as: ' + user.displayName);
-                signInButton.innerText = user.displayName; // Update button text with username
+                console.log('Signed in as: ' + result.user.displayName);
+                signInButton.innerText = result.user.displayName; // Update button text with username
             } else {
                 // User is signed out
                 console.log('User signed out');
                 signInButton.innerText = 'Sign In'; // Reset button text
             }
+        }).catch(function (error) {
+            // Handle errors
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            console.error('Sign-in error:', errorCode, errorMessage);
         });
     </script>
 
