@@ -91,7 +91,18 @@
         // Sign In Button Click Event
         signInButton.addEventListener('click', function () {
             const provider = new GoogleAuthProvider();
-            auth.signInWithRedirect(provider);
+            auth.signInWithPopup(provider)
+                .then(function (result) {
+                    // Successful sign-in
+                    var user = result.user;
+                    console.log('Signed in as: ' + user.displayName);
+                })
+                .catch(function (error) {
+                    // Handle errors
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    console.error('Sign-in error:', errorCode, errorMessage);
+                });
         });
 
         // Check for auth state changes
