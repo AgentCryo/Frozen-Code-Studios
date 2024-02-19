@@ -73,8 +73,6 @@
         
     <script>
 
-        import { GoogleAuthProvider } from "firebase/auth";
-
         const firebaseConfig = {
             apiKey: "AIzaSyAvfxL-EiAo6i6iOuGE2qsw7vqLarK1OpU",
             authDomain: "frozen-code-studios-website.firebaseapp.com",
@@ -85,30 +83,24 @@
             measurementId: "G-G4993S3SZ1"
         };
 
-        const app = initializeApp(firebaseConfig);
+        firebase.initializeApp(firebaseConfig);
 
         import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
-        const auth = getAuth();
-        signInWithPopup(auth, provider)
-            .then((result) => {
-                // This gives you a Google Access Token. You can use it to access the Google API.
-                const credential = GoogleAuthProvider.credentialFromResult(result);
-                const token = credential.accessToken;
-                // The signed-in user info.
-                const user = result.user;
-                // IdP data available using getAdditionalUserInfo(result)
-                // ...
-            }).catch((error) => {
-                // Handle Errors here.
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                // The email of the user's account used.
-                const email = error.customData.email;
-                // The AuthCredential type that was used.
-                const credential = GoogleAuthProvider.credentialFromError(error);
-                // ...
-            });
+        // Sign In Button Click Event
+        document.getElementById('signInButton').addEventListener('click', function () {
+            // Sign in with Google provider (you can use other providers or methods)
+            var provider = new firebase.auth.GoogleAuthProvider();
+
+            // Sign in with a pop-up window
+            firebase.auth().signInWithPopup(provider)
+                .then(function (result) {
+                    // Successful sign-in
+                    var user = result.user;
+                    console.log('Signed in as: ' + user.displayName);
+                })
+                .catch(function (error)
+
 
     </script>
 
