@@ -85,18 +85,17 @@
 
         // Sign In Button Click Event
         document.getElementById('signInButton').addEventListener('click', function () {
-            // Sign in with Google provider (you can use other providers or methods)
             var provider = new firebase.auth.GoogleAuthProvider();
 
-            // Sign in with a pop-up window
             firebase.auth().signInWithPopup(provider)
                 .then(function (result) {
-                    // Successful sign-in
                     var user = result.user;
                     console.log('Signed in as: ' + user.displayName);
+
+                    // Update button text with user's display name
+                    document.getElementById('signInButton').innerText = user.displayName;
                 })
                 .catch(function (error) {
-                    // Handle errors
                     var errorCode = error.code;
                     var errorMessage = error.message;
                     console.error('Sign-in error:', errorCode, errorMessage);
