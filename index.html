@@ -70,6 +70,8 @@
     </footer>
 
     <!-- Your Firebase project configuration -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js"></script>
     <script>
         const firebaseConfig = {
             apiKey: "AIzaSyAvfxL-EiAo6i6iOuGE2qsw7vqLarK1OpU",
@@ -83,25 +85,26 @@
 
         firebase.initializeApp(firebaseConfig);
 
-        // Sign In Button Click Event
-        document.getElementById('signInButton').addEventListener('click', function () {
-            var provider = new firebase.auth.GoogleAuthProvider();
+        const signInButton = document.getElementById('signInButton');
 
+        // Sign In Button Click Event
+        signInButton.addEventListener('click', function () {
+            const provider = new firebase.auth.GoogleAuthProvider();
             firebase.auth().signInWithRedirect(provider);
         });
 
-        // Handle the redirect in the page load or initialize a listener for auth state changes.
-        firebase.auth().getRedirectResult().then(function (result) {
-            if (result.user) {
-                console.log('Signed in as: ' + result.user.displayName);
-                document.getElementById('signInButton').innerText = result.user.displayName;
+        // Check for auth state changes
+        firebase.auth().onAuthStateChanged(function (user) {
+            if (user) {
+                // User is signed in
+                console.log('Signed in as: ' + user.displayName);
+                signInButton.innerText = user.displayName; // Update button text with username
+            } else {
+                // User is signed out
+                console.log('User signed out');
+                signInButton.innerText = 'Sign In'; // Reset button text
             }
-        }).catch(function (error) {
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            console.error('Redirect error:', errorCode, errorMessage);
         });
-
     </script>
 
 
