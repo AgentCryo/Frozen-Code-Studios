@@ -211,11 +211,6 @@ body .main-content .content-box {
     cursor: pointer;
 }
 
-#signInContent.show {
-    top: 50%;
-    opacity: 1;
-}
-
 #signInContent {
     display: none;
     position: fixed;
@@ -229,3 +224,9 @@ body .main-content .content-box {
     transition: top 0.5s ease, opacity 0.5s ease;
     opacity: 0;
 }
+
+    #signInContent.show {
+        top: 50%;
+        opacity: 1;
+        display: block; /* Add this line to override display: none; */
+    }

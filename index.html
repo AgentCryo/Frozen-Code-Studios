@@ -49,10 +49,25 @@
                     <a href="comguid.html">Community Guidelines</a>
                 </div>
             </div>
-
-            <button id="signInButton">Sign In</button>
         </div>
     </div>
+
+    <div id="signInContent" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeSignInModal()">&times;</span>
+            <form>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+
+                <button type="button" onclick="signInUser()">Continue</button>
+                <button type="button" onclick="createAccount()">Create Account</button>
+            </form>
+        </div>
+    </div>
+
 
     <div class="main-content">
         <div class="video-container">
@@ -65,75 +80,83 @@
         <tt>Add on main page<br>Festured Trailer<br>Launch/Advent Timer<br>Studio Blog<br>Upcoming Advents<br>Interactive Polls<br>Donations</tt>
     </div>
 
+    <button id="signInButton" onclick="openSignInModal()">Sign In</button>
+
     <footer>
-        &copy; 2024 Frozen Code Studios. All rights reserved.
+        &copy; Frozen Code Studios. All rights reserved.
     </footer>
 
-    <!-- Your Firebase project configuration -->
-    <script type="module">
-        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js';
-        import { getAuth, signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyAvfxL-EiAo6i6iOuGE2qsw7vqLarK1OpU",
-            authDomain: "frozen-code-studios-website.firebaseapp.com",
-            projectId: "frozen-code-studios-website",
-            storageBucket: "frozen-code-studios-website.appspot.com",
-            messagingSenderId: "940079797917",
-            appId: "1:940079797917:web:54aba40e93d2af4bdde674",
-            measurementId: "G-G4993S3SZ1"
-        };
+<script type="module" src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js"></script>
+<script type="module" src="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.js"></script>
+<script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js';
+    import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.js';
 
-        const firebaseApp = initializeApp(firebaseConfig);
-        const auth = getAuth(firebaseApp);
+    const firebaseConfig = {
+        apiKey: "AIzaSyAvfxL-EiAo6i6iOuGE2qsw7vqLarK1OpU",
+        authDomain: "frozen-code-studios-website.firebaseapp.com",
+        projectId: "frozen-code-studios-website",
+        storageBucket: "frozen-code-studios-website.appspot.com",
+        messagingSenderId: "940079797917",
+        appId: "1:940079797917:web:54aba40e93d2af4bdde674",
+        measurementId: "G-G4993S3SZ1"
+    };
 
-        const signInButton = document.getElementById('signInButton');
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    function openSignInModal() {
         const signInContent = document.getElementById('signInContent');
+        signInContent.style.display = 'block';
+    }
+
+    function closeSignInModal() {
+        const signInContent = document.getElementById('signInContent');
+        signInContent.style.display = 'none';
+    }
+
+    function signInUser() {
         const emailInput = document.getElementById('email');
         const passwordInput = document.getElementById('password');
-        const continueButton = document.getElementById('continueButton');
-        const createAccountButton = document.getElementById('createAccountButton');
 
-        // Sign In Button Click Event
-        signInButton.addEventListener('click', function () {
-            signInContent.classList.add('show');
-        });
+        const email = emailInput.value;
+        const password = passwordInput.value;
 
-        // Continue Button Click Event
-        continueButton.addEventListener('click', function () {
-            const email = emailInput.value;
-            const password = passwordInput.value;
+        signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                const user = userCredential.user;
+                console.log('Signed in as: ' + user.email);
+                closeSignInModal();
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.error('Sign-in error:', errorCode, errorMessage);
+            });
+    }
 
-            signInWithEmailAndPassword(auth, email, password)
-                .then((userCredential) => {
-                    // Signed in
-                    const user = userCredential.user;
-                    console.log('Signed in as: ' + user.email);
-                    signInContent.classList.remove('show'); // Hide the content box after signing in
-                })
-                .catch((error) => {
-                    // Handle errors
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
-                    console.error('Sign-in error:', errorCode, errorMessage);
-                });
-        });
-    </script>
+    function createAccount() {
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
 
-    <!-- Add this form in your HTML body for email/password sign-in -->
-    <div id="signInContent">
-        <form>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
+        const email = emailInput.value;
+        const password = passwordInput.value;
 
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-
-            <button type="button" id="continueButton">Continue</button>
-            <button type="button" id="createAccountButton">Create Account</button>
-        </form>
-    </div>
-
+        createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                const user = userCredential.user;
+                console.log('Account created and signed in: ' + user.email);
+                closeSignInModal();
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.error('Account creation error:', errorCode, errorMessage);
+            });
+    }
+</script>
 
 </body>
 
