@@ -6,6 +6,20 @@
     <meta name="viewport" content="width=device-width">
     <title>Frozen Code Studios</title>
     <link href="style.css" rel="stylesheet" type="text/css" />
+    <style>
+        /* Your CSS styles here */
+        #signInContent {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+    </style>
 </head>
 
 <body>
@@ -47,7 +61,7 @@
 
         // Sign In Button Click Event
         signInButton.addEventListener('click', function () {
-            signInContent.style.display = 'block';
+            signInContent.classList.add('show');
         });
 
         // Continue Button Click Event
@@ -60,7 +74,7 @@
                     // Signed in
                     const user = userCredential.user;
                     console.log('Signed in as: ' + user.email);
-                    signInContent.style.display = 'none'; // Hide the content box after signing in
+                    signInContent.classList.remove('show'); // Hide the content box after signing in
                 })
                 .catch((error) => {
                     // Handle errors
@@ -70,7 +84,7 @@
                 });
         });
 
-            // ... other Firebase auth state change and create account functionality ...
+                    // ... other Firebase auth state change and create account functionality ...
     </script>
 
     <!-- Add this form in your HTML body for email/password sign-in -->
@@ -86,6 +100,7 @@
             <button type="button" id="createAccountButton">Create Account</button>
         </form>
     </div>
+
 
 </body>
 
