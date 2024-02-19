@@ -70,7 +70,9 @@
         &copy; 2024 Frozen Code Studios. All rights reserved.
     </footer>
 
+        
     <script>
+
         import { GoogleAuthProvider } from "firebase/auth";
 
         const firebaseConfig = {
@@ -82,6 +84,8 @@
             appId: "1:940079797917:web:54aba40e93d2af4bdde674",
             measurementId: "G-G4993S3SZ1"
         };
+
+        const app = initializeApp(firebaseConfig);
 
         import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
